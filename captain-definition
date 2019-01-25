@@ -1,0 +1,27 @@
+{
+  "schemaVersion" :1 ,
+  "dockerfileLines" :[
+                        "FROM alpine:3.5",
+                        "ENV USERNAME admin",
+                        "ENV FOSSIL_VERSION 2.7",
+                        "COPY $FOSSIL_VERSION/runserver.sh /usr/local/bin/runserver.sh",
+                        "RUN addgroup -Sg 400 fossil",
+                        "RUN adduser -Su 400 -G fossil fossil",
+                        "RUN apk add --no-cache curl",
+                        "RUN curl -fsSLo /tmp/fossil.tar.gz https://www.fossil-scm.org/index.html/uv/fossil-linux-x64-$FOSSIL_VERSION.tar.gz",
+                        "RUN tar xf /tmp/fossil.tar.gz -C /usr/local/bin",
+                        "RUN rm /tmp/fossil.tar.gz",
+                        "RUN mkdir /data",
+                        "RUN chown -R fossil:fossil /data",
+                        "RUN chmod +x /usr/local/bin/runserver.sh",
+                        "RUN apk del --purge --no-cache curl",
+                        "RUN rm -f /var/cache/apk/*",
+                        "VOLUME [\"/data\"]",
+                        "WORKDIR \"/data\"",
+                        "EXPOSE 9000",
+                        "USER fossil",
+                        "CMD [\"/usr/local/bin/runserver.sh\"]",
+                        "CMD [\"/usr/bin/solid\", \"start\", \"--multiuser\" ]"
+                    ]
+}
+
