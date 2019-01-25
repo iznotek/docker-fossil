@@ -15,5 +15,5 @@ unset $PASSWORD
 
 #if [ -w "/data/fossil.fossil" ]
 #then
-/usr/local/bin/fossil server /data/ --scgi --port 9000
+/usr/local/bin/fossil server --scgi --port 9000 --repolist  /data/ 
 #fi
