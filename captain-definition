@@ -4,7 +4,7 @@
                         "FROM alpine:3.5",
                         "ENV USERNAME admin",
                         "ENV FOSSIL_VERSION 2.7",
-                        "COPY $FOSSIL_VERSION/runserver.sh /usr/local/bin/runserver.sh",
+                        "COPY src/$FOSSIL_VERSION/runserver.sh /usr/local/bin/runserver.sh",
                         "RUN addgroup -Sg 400 fossil",
                         "RUN adduser -Su 400 -G fossil fossil",
                         "RUN apk add --no-cache curl",
@@ -20,8 +20,7 @@
                         "WORKDIR \"/data\"",
                         "EXPOSE 9000",
                         "USER fossil",
-                        "CMD [\"/usr/local/bin/runserver.sh\"]",
-                        "CMD [\"/usr/bin/solid\", \"start\", \"--multiuser\" ]"
+                        "CMD [\"/usr/local/bin/runserver.sh\"]"
                     ]
 }
 
